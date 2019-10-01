@@ -85,8 +85,8 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="fab fa-laravel text-blue" ></i>
-                        <span class="nav-link-text text-blue">{{ __('Laravel Examples') }}</span>
+                        <i class="ni ni-collection text-blue" ></i>
+                        <span class="nav-link-text text-blue">{{ __('Management') }}</span>
                     </a>
 
                     <div class="collapse" id="navbar-examples">
@@ -108,6 +108,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('sistemoperasi.index') }}">
                         <i class="ni ni-bullet-list-67 text-blue"></i> {{ __('DB_Sistem Operasi') }} 
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('alokasihostname.index') }}">
+                        <i class="ni ni-chart-pie-35 text-blue"></i> {{ __('Alokasi Hostname VM') }} 
                     </a>
                 </li>
                 
