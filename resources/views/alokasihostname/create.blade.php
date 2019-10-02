@@ -52,7 +52,7 @@
                                                     <option value="C">CLOUD</option>
                                                     <option value="D">DEVELOPMENT</option>
                                                     <option value="H">HOSTING</option>
-                                                    <option value="S">SERVER</option>
+                                                    <option value="M">MANAGEMENT</option>
                                                 </select>
                                                 @if($errors->has('tipe'))
                                                     <strong class="text-danger"> {{$errors->first('tipe')}} </strong>
