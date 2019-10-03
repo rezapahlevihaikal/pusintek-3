@@ -17,6 +17,8 @@
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <h3 class="mb-0">{{ __('Alokasi Hostname VM') }}</h3>
+                                <br>
+                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for unit">
                             </div>
                             <div class="col-4 text-right">
                                 <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Add Alokasi Hostname VM') }}</a>
@@ -36,7 +38,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
+                        <table class="table align-items-center table-flush" id="myTable">
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">{{ __('Unit') }}</th>
@@ -102,7 +104,7 @@
                     </div>
                     {{-- <div class="card-footer py-4">
                         <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $users->links() }}
+                            {{ $alokasihostname->links() }}
                         </nav>
                     </div> --}}
                 </div>
@@ -112,3 +114,27 @@
         @include('layouts.footers.auth')
     </div>
 @endsection
+
+<script>
+    function myFunction() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
