@@ -54,6 +54,8 @@ class AlokasiHostnameController extends Controller
             $id_unit = 'VDC06';
         }elseif($request->unit === 'DJPK'){
             $id_unit = 'VDC07';
+        }elseif($request->unit === 'DJPPR'){
+            $id_unit = 'VDC08';
         }elseif($request->unit === 'ITJEN'){
             $id_unit = 'VDC09';
         }elseif($request->unit === 'BKF'){
@@ -63,10 +65,24 @@ class AlokasiHostnameController extends Controller
         }elseif($request->unit === 'LUAR_KEMENKEU'){
             $id_unit = 'VDC13';
         }
+
         $statement = DB::select("SHOW TABLE STATUS LIKE 'alokasi_hostnames'");
         $nextId = $statement[0]->Auto_increment;
-        $tipe = $request->tipe;
+        dd($statement);
+        $tipe = $request->tipe; // 001 , 002 
         $hostname = $id_unit.''.$nextId.''.$tipe;
+
+        // $statement = DB::select("SHOW TABLE STATUS LIKE 'alokasi_hostnames'");
+        // $nextId = $statement[0]->Auto_increment;
+        // $nextId = str_pad($nextId , 3 , 0);
+        // dd($nextId);
+        $lastvmId = AlokasiHostname::orderBy('id', 'desc')->first()->id;
+        $lastIncreament = substr($lastvmId, -3);
+        $newOrderId = str_pad($lastIncreament + 1, 3, 0, STR_PAD_LEFT);
+        // dd($newOrderId);
+        $tipe = $request->tipe;
+        $hostname = $id_unit.''.$newOrderId.''.$tipe;
+
         
         $alokasihostname = new AlokasiHostname;
         $alokasihostname->unit = $request->unit;
