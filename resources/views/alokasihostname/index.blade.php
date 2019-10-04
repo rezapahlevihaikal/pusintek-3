@@ -19,7 +19,8 @@
                                 <h3 class="mb-0">{{ __('Alokasi Hostname VM') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Add Alokasi Hostname VM') }}</a>
+                                {{--  <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Add Alokasi Hostname VM') }}</a>  --}}
+                                <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary"><i class="ni ni-fat-add"></i></a>
                             </div>
                         </div>
                     </div>
