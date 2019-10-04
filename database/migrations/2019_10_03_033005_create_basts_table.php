@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class TableSistemOperasi extends Migration
+class CreateBastsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class TableSistemOperasi extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('sistem_operasi', function (Blueprint $table) {
+        Schema::create('basts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('namaOS');
-            $table->timestamp('created_at')->nullable();
+            $table->string('pernyataan');
+            $table->string('nama');
+            $table->string('nip');
+            $table->string('jabatan');
+            $table->string('unit');
+            $table->timestamps();
         });
     }
 
@@ -28,7 +31,6 @@ class TableSistemOperasi extends Migration
      */
     public function down()
     {
-        //
-        Schema::dropIfExists('sistem_operasi');
+        Schema::dropIfExists('basts');
     }
 }

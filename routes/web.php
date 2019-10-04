@@ -25,4 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 	Route::resource('sistemoperasi', 'SistemOperasiController');
 	Route::resource('alokasihostname', 'AlokasiHostnameController');
+	Route::resource('bastdocument' , 'BastController');
+	Route::get('export/cetak_surat/{id}', 'ExportController@cetak_surat')->name('export');
+
 });
