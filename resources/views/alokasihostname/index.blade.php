@@ -111,9 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 text-right">
-           <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Cetak Laporan') }}</a>
-        </div>
+
         @include('layouts.footers.auth')
     </div>
 @endsection
