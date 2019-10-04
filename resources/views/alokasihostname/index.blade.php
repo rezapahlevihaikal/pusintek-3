@@ -21,7 +21,8 @@
                                 <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for unit">
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Add Alokasi Hostname VM') }}</a>
+                                {{--  <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Add Alokasi Hostname VM') }}</a>  --}}
+                                <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary"><i class="ni ni-fat-add"></i></a>
                             </div>
                         </div>
                     </div>
@@ -110,7 +111,7 @@
                 </div>
             </div>
         </div>
-            
+
         @include('layouts.footers.auth')
     </div>
 @endsection
