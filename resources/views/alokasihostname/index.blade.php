@@ -45,6 +45,7 @@
                                     <th scope="col">{{ __('Hostname') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
                                     <th scope="col">{{ __('Alamat IP') }}</th>
+                                    <th scope="col">{{ __('Label VM') }}</th>
                                     <th scope="col">{{ __('Sistem Operasi') }}</th>
                                     <th scope="col">{{ __('CPU') }}</th>
                                     <th scope="col">{{ __('Memory') }}</th>
@@ -87,6 +88,7 @@
                     {data: 'hostname', name: 'hostname'},
                     {data: 'description', name: 'description'},
                     {data: 'ip', name: 'ip'},
+                    {data: 'label_vm', name: 'label_vm'},
                     {data: 'sistem_operasi', name: 'sistem_operasi'},
                     {data: 'cpu', name: 'cpu'},
                     {data: 'memory', name: 'memory'},

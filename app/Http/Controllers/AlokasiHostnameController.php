@@ -83,6 +83,7 @@ class AlokasiHostnameController extends Controller
         $alokasihostname->hostname = $hostname;
         $alokasihostname->description = $request->desc;
         $alokasihostname->ip = $request->ip;
+        $alokasihostname->label_vm = $hostname.'-'.$request->desc;
         $alokasihostname->sistem_operasi = $request->sistemOperasi;
         $alokasihostname->cpu = $request->cpu;
         $alokasihostname->memory = $request->memory;
@@ -138,6 +139,8 @@ class AlokasiHostnameController extends Controller
         $alokasihostname->description = $request->desc;
         $alokasihostname->ip = $request->ip;
         $alokasihostname->sistem_operasi = $request->sistemOperasi;
+        $labelvm = $alokasihostname->hostname."-".$request->desc;
+        $alokasihostname->label_vm = $labelvm;
         $alokasihostname->cpu = $request->cpu;
         $alokasihostname->memory = $request->memory;
         $alokasihostname->disk = $request->disk;
