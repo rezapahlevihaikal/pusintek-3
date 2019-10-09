@@ -28,5 +28,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('alokasihostname', 'AlokasiHostnameController');
 	Route::resource('bastdocument' , 'BastController');
 	Route::get('export/cetak_surat/{id}', 'ExportController@cetak_surat')->name('export');
-
+	Route::get('export/sistemoperasi', 'ExportController@jsonOs')->name('export/sistemoperasi');
+	Route::get('export/alokasihostname', 'ExportController@jsonHostname')->name('export/alokasihostname');
+	Route::get('export/bast', 'ExportController@jsonBast')->name('export/bast');
 });

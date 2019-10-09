@@ -16,9 +16,8 @@ class AlokasiHostnameController extends Controller
      */
     public function index()
     {
-        $alokasihostname = AlokasiHostname::orderBy('id', 'desc')->get();
 
-        return view ('alokasihostname.index' , compact('alokasihostname'));
+        return view ('alokasihostname.index');
     }
 
     /**
@@ -40,6 +39,7 @@ class AlokasiHostnameController extends Controller
      */
     public function store(Request $request)
     {   
+        // dd($request);
         if($request->unit === 'SETJEN'){
             $id_unit = 'VDC01';
         }elseif($request->unit === 'DJA'){
@@ -160,8 +160,11 @@ class AlokasiHostnameController extends Controller
      */
     public function destroy($id)
     {
-        $alokasihostname = AlokasiHostname::find($id);
-        $alokasihostname->delete();
-        return redirect()->route('alokasihostname.index')->withStatus(__('Alokasi Hostname VM successfully delete.'));
+        $alokasihostname = AlokasiHostname::findOrFail($id);
+        AlokasiHostname::destroy($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Alokasi Hostname VM Deleted'
+        ]);
     }
 }

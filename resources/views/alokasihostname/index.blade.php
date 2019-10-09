@@ -17,8 +17,6 @@
                         <div class="row align-items-center">
                             <div class="col-8">
                                 <h3 class="mb-0">{{ __('Alokasi Hostname VM') }}</h3>
-                                <br>
-                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for unit">
                             </div>
                             <div class="col-4 text-right">
                                 {{--  <a href="{{ route('alokasihostname.create') }}" class="btn btn-sm btn-primary">{{ __('Add Alokasi Hostname VM') }}</a>  --}}
@@ -38,10 +36,11 @@
                         @endif
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush" id="myTable">
+                    <div class="table-responsive" style="padding:25px">
+                        <table class="table table-bordered text-center" id="table">
                             <thead class="thead-light">
                                 <tr>
+                                    <th scope="col">{{ __('ID') }}</th>
                                     <th scope="col">{{ __('Unit') }}</th>
                                     <th scope="col">{{ __('Hostname') }}</th>
                                     <th scope="col">{{ __('Description') }}</th>
@@ -58,56 +57,11 @@
                                     <th scope="col">{{ __('PIC OPD') }}</th>
                                     <th scope="col">{{ __('No Bast') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @foreach ($alokasihostname as $row)
-                                    <tr>
-                                        <td>{{ $row->unit }}</td>
-                                        <td>{{ $row->hostname }}</td>
-                                        <td>{{ $row->description }}</td>
-                                        <td>{{ $row->ip }}</td>
-                                        <td>{{ $row->sistem_operasi }}</td>
-                                        <td>{{ $row->cpu }}</td>
-                                        <td>{{ $row->memory }}</td>
-                                        <td>{{ $row->disk }}</td>
-                                        <td>{{ $row->cluster_host }}</td>
-                                        <td>{{ $row->data_store }}</td>
-                                        <td>{{ $row->no_tiket }}</td>
-                                        <td>{{ $row->keterangan }}</td>
-                                        <td>{{ $row->pic }}</td>
-                                        <td>{{ $row->pic_opd }}</td>
-                                        <td>{{ $row->no_bast }}</td>
-                                        <td>{{ $row->created_at->format('d/m/Y H:i') }}</td>
-                                        <td class="text-right">
-                                            <div class="dropdown">
-                                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fas fa-ellipsis-v"></i>
-                                                </a>
-                                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <form action="{{ route('alokasihostname.destroy', $row->id) }}" method="post">
-                                                        @csrf
-                                                        @method('delete')
-                                                        
-                                                        <a class="dropdown-item" href="{{ route('alokasihostname.edit', $row->id) }}">{{ __('Edit') }}</a>
-                                                        <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
-                                                            {{ __('Delete') }}
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
                         </table>
                     </div>
-                    {{-- <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $alokasihostname->links() }}
-                        </nav>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -116,26 +70,78 @@
     </div>
 @endsection
 
-<script>
-    function myFunction() {
-      // Declare variables
-      var input, filter, table, tr, td, i, txtValue;
-      input = document.getElementById("myInput");
-      filter = input.value.toUpperCase();
-      table = document.getElementById("myTable");
-      tr = table.getElementsByTagName("tr");
+@push('js')
+    <script type="text/javascript">
     
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
+        $(function() {
+            var table = $('#table').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": '{{ url("export/alokasihostname") }}',
+                    "type": "GET"
+                },
+                "columns": [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    {data: 'unit', name: 'unit'},
+                    {data: 'hostname', name: 'hostname'},
+                    {data: 'description', name: 'description'},
+                    {data: 'ip', name: 'ip'},
+                    {data: 'sistem_operasi', name: 'sistem_operasi'},
+                    {data: 'cpu', name: 'cpu'},
+                    {data: 'memory', name: 'memory'},
+                    {data: 'disk', name: 'disk'},
+                    {data: 'cluster_host', name: 'cluster_host'},
+                    {data: 'data_store', name: 'data_store'},
+                    {data: 'no_tiket', name: 'no_tiket'},
+                    {data: 'keterangan', name: 'keterangan'},
+                    {data: 'pic', name: 'pic'},
+                    {data: 'pic_opd', name: 'pic_opd'},
+                    {data: 'no_bast', name: 'no_bast'},
+                    {data: 'created_at', name: 'created_at' },
+                    {data: 'action', name: 'action' },
+                ],
+            });
+        });
+
+        function deleteData(id){
+            var table = $('#table').DataTable();
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Are you sure?',
+                text: "You won't to delete Alakosi Hostname VM",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(function () {
+                $.ajax({
+                    url : "{{ url('alokasihostname') }}" + '/' + id,
+                    type : "POST",
+                    data : {'_method' : 'DELETE', '_token' : csrf_token},
+                    success : function(data) {
+                        // table.api().ajax.reload();            
+                        $('#table').DataTable().ajax.reload(null, false);
+                        swal({
+                            title: 'Success!',
+                            text: data.message,
+                            type: 'success',
+                            timer: '1500'
+                        })
+                    },
+                    error : function () {
+                        swal({
+                            title: 'Oops...',
+                            text: data.message,
+                            type: 'error',
+                            timer: '1500'
+                        })
+                    }
+                });
+            });
         }
-      }
-    }
+       
+
     </script>
+@endpush

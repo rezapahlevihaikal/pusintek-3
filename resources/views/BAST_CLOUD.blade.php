@@ -138,7 +138,7 @@
 		<td colspan="8"><p class="text_content">PIHAK PERTAMA berhak melakukan audit penggunaan dan utilitas resource cloud server untuk ditindaklanjuti pada kegiatan optimalisasi. Dan apabila di kemudian hari dibutuhkan penambahan / perubahan resource cloud server, PIHAK KEDUA dapat mengajukan permintaan RFC (request for change) melalui Service Desk Pusintek.</p></td>
 	</tr>
 	<tr>
-		<td colspan="8"><p class="text_content">Masa waktu cloud server development adalah 2 (dua) bulan dengan perpanjangan maksimal 2 (dua) bulan. PIHAK PERTAMA berhak melakukan penghapusan Cloud Server dalam waktu 2 (dua) bulan apabila PIHAK KEDUA tidak melakukan permintaan perpanjangan masa Cloud Server Development.</p></td>
+		<td colspan="8"><p class="text_content">Masa waktu cloud server development adalah {{$bast->sewa}} bulan dengan perpanjangan maksimal {{$bast->sewa}} bulan. PIHAK PERTAMA berhak melakukan penghapusan Cloud Server dalam waktu  {{$bast->sewa}} bulan apabila PIHAK KEDUA tidak melakukan permintaan perpanjangan masa Cloud Server Development.</p></td>
 	</tr>
 	<tr>
 		<td colspan="8"><p class="text_content">Demikian Berita Acara ini dibuat untuk dapat digunakan semestinya.</p></td>

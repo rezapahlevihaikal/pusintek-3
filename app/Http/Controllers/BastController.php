@@ -16,9 +16,7 @@ class BastController extends Controller
      */
     public function index()
     {
-        $no = 1;
-        $basts = Bast::all();
-        return view ('bastdocument.index', compact('no', 'basts'));
+        return view ('bastdocument.index');
     }
 
     /**
@@ -40,12 +38,18 @@ class BastController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $bastdoc = new Bast;
         $bastdoc->pernyataan = $request->pernyataan;
         $bastdoc->nama = $request->nama;
         $bastdoc->nip = $request->nip;
         $bastdoc->jabatan = $request->jabatan;
         $bastdoc->unit = $request->unit;
+        if($request->sewa != null){
+            $bastdoc->sewa = $request->sewa;
+        }else{
+            $bastdoc->sewa = 2;
+        }
         $bastdoc->save();
         $bastdoc->vm()->attach($request->alokasihostname);
         return redirect()->route('bastdocument.index')->withStatus(__('Bast Document successfully created.'));
@@ -107,7 +111,10 @@ class BastController extends Controller
         $bastdoc = Bast::find($id);
         $bastdoc->vm()->detach();
         $bastdoc->delete();
-        return redirect()->route('bastdocument.index')->withStatus(__('Bast Document Information successfully deleted.'));
+        return response()->json([
+            'success' => true,
+            'message' => 'Alokasi Hostname VM Deleted'
+        ]);
     }
 
     
