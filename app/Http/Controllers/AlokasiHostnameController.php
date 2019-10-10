@@ -68,7 +68,7 @@ class AlokasiHostnameController extends Controller
 
         $statement = DB::select("SHOW TABLE STATUS LIKE 'alokasi_hostnames'");
         $nextId = $statement[0]->Auto_increment;
-        dd($statement);
+        // dd($statement);
         $tipe = $request->tipe; // 001 , 002 
         $hostname = $id_unit.''.$nextId.''.$tipe;
 
