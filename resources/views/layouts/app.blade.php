@@ -7,9 +7,9 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Argon Dashboard') }}</title>
+        <title>PUSINTEK</title>
         <!-- Favicon -->
-        <link href="{{ asset('argon') }}/img/brand/favicon.png" rel="icon" type="image/png">
+        <link href="{{ asset('argon') }}/img/brand/logo.png" rel="icon" type="image/png">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
         <!-- Icons -->
@@ -17,6 +17,14 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+
+        <!-- Data Table CSS -->
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+        {{-- SweetAlert2 --}}
+        <link href="{{ asset('sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/css/bootstrap-select.css" integrity="sha256-vSrDmlz+mtdIVbkT/YlfVp3GRdmd0wznVW64D+DDu6s=" crossorigin="anonymous" />
     </head>
     <body class="{{ $class ?? '' }}">
         @auth()
@@ -37,10 +45,13 @@
 
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/js/bootstrap-select.min.js" integrity="sha256-FXzZGmaRFZngOjUKy3lWZJq/MflaMpffBbu3lPT0izE=" crossorigin="anonymous"></script>
         @stack('js')
         
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+
+        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
     </body>
 </html>

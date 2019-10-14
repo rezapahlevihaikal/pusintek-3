@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SistemOperasi;
 
+
 class SistemOperasiController extends Controller
 {
     /**
@@ -12,10 +13,10 @@ class SistemOperasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
-        $sistemoperasi = SistemOperasi::all();
-        return view ('sistem_operasi.index', compact('sistemoperasi'));
+        return view ('sistem_operasi.index');
     }
 
     /**
@@ -88,8 +89,11 @@ class SistemOperasiController extends Controller
      */
     public function destroy($id)
     {
-        $sistemoperasi = SistemOperasi::find($id);
-        $sistemoperasi->delete();
-        return redirect()->route('sistemoperasi.index')->withStatus(__('OS successfully deleted.'));
+        $sistemoperasi = SistemOperasi::findOrFail($id);
+        SistemOperasi::destroy($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Sistem Operasi Deleted'
+        ]);
     }
 }

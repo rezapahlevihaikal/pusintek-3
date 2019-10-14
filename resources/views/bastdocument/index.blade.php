@@ -1,4 +1,4 @@
-@extends('layouts.app', ['title' => __('User Management')])
+@extends('layouts.app', ['title' => __('Bast Cloud Document Management')])
 
 @section('content')
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
@@ -16,12 +16,11 @@
                     <div class="card-header border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Sistem Operasi') }}</h3>
+                                <h3 class="mb-0">{{ __('Bast Cloud Document Atas Nama') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('sistemoperasi.create') }}" class="btn btn-sm btn-primary">{{ __('Add OS') }}</a>
+                                <a href="{{ route('bastdocument.create') }}" class="btn btn-sm btn-primary">{{ __('Add Bast Document') }}</a>
                             </div>
-                            
                         </div>
                     </div>
                     
@@ -37,14 +36,18 @@
                     </div>
 
                     <div class="table-responsive" style="padding:25px">
-                        <table class="table table-bordered text-center" id="table-os">
-                            <thead class="thead-light">
+                            <table class="table table-bordered text-center" id="table-bast">
+                            <thead class="thead-light text-center" >
                                 <tr>
-                                    <th scope="col">{{ __('ID') }}</th>
-                                    <th scope="col">{{ __('Name OS') }}</th>
+                                    <th scope="col">{{ __('No') }}</th>
+                                    <th scope="col">{{ __('Nama') }}</th>
+                                    <th scope="col">{{ __('NIP') }}</th>
+                                    <th scope="col">{{ __('Jabatan') }}</th>
+                                    <th scope="col">{{ __('Unit') }}</th>
+                                    <th scope="col">{{ __('Sewa') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
+                                    <th scope="col">{{ __('Export To PDF') }}</th>
                                     <th scope="col">{{ __('Action') }}</th>
-                                    {{-- <th scope="col"></th> --}}
                                 </tr>
                             </thead>
                         </table>
@@ -60,27 +63,32 @@
 @push('js')
     <script type="text/javascript">
         $(function() {
-            var table = $('#table-os').DataTable({
+            var table = $('#table-bast').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '{{ url("export/sistemoperasi") }}'
+                    url: '{{ url("export/bast") }}'
                 },
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                    {data: 'name', name: 'name'},
+                    {data: 'nama', name: 'nama'},
+                    {data: 'nip', name: 'nip'},
+                    {data: 'jabatan', name: 'jabatan'},
+                    {data: 'unit', name: 'unit'},
+                    {data: 'sewa', name: 'sewa'},
                     {data: 'created_at', name: 'created_at' },
+                    {data: 'pdf', name: 'pdf' },
                     {data: 'action', name: 'action' },
                 ],
             });
         });
 
         function deleteData(id){
-            var table = $('#table-os').DataTable();
+            var table = $('#table-bast').DataTable();
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             swal({
                 title: 'Are you sure?',
-                text: "You won't to delete This Sistem Operasi!",
+                text: "You won't to delete This Bast Document!",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonColor: '#d33',
@@ -88,12 +96,12 @@
                 confirmButtonText: 'Yes, delete it!'
             }).then(function () {
                 $.ajax({
-                    url : "{{ url('sistemoperasi') }}" + '/' + id,
+                    url : "{{ url('bastdocument') }}" + '/' + id,
                     type : "POST",
                     data : {'_method' : 'DELETE', '_token' : csrf_token},
                     success : function(data) {
                         // table.api().ajax.reload();            
-                        $('#table-os').DataTable().ajax.reload(null, false);
+                        $('#table-bast').DataTable().ajax.reload(null, false);
                         swal({
                             title: 'Success!',
                             text: data.message,

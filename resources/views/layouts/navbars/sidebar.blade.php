@@ -116,6 +116,11 @@
                         <i class="ni ni-chart-pie-35 text-blue"></i> {{ __('Alokasi Hostname VM') }} 
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('bastdocument.index') }}">
+                        <i class="fas fa-file text-blue" ></i> {{ __('BAST Cloud Document') }} 
+                    </a>
+                </li>
                 
                 
             </ul> 
