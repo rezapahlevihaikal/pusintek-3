@@ -92,6 +92,16 @@
                                             <strong class="text-danger"> {{$errors->first('unit')}} </strong>
                                         @endif
                                     </div>
+                                    <div class="col">
+                                        <label class="form-control-label" for="input-sewa">{{ __('Sewa') }}</label>
+                                        <input type="number" name="sewa" id="input-sewa" class="form-control form-control-alternative{{ $errors->has('sewa') ? ' is-invalid' : '' }}" placeholder="{{ __('Input Lama Sewa') }}" value="{{ old('sewa') }}" autofocus>
+
+                                        @if ($errors->has('sewa'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('sewa') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
                             </div>
 

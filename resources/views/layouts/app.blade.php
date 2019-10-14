@@ -18,6 +18,12 @@
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
 
+        <!-- Data Table CSS -->
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
+
+        {{-- SweetAlert2 --}}
+        <link href="{{ asset('sweetalert2/sweetalert2.min.css') }}" rel="stylesheet">
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/css/bootstrap-select.css" integrity="sha256-vSrDmlz+mtdIVbkT/YlfVp3GRdmd0wznVW64D+DDu6s=" crossorigin="anonymous" />
     </head>
     <body class="{{ $class ?? '' }}">
@@ -44,5 +50,8 @@
         
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+
+        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        <script src="{{ asset('sweetalert2/sweetalert2.min.js') }}"></script>
     </body>
 </html>

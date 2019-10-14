@@ -35,8 +35,8 @@
                         @endif
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table align-items-center table-flush" id="myTable">
+                    <div class="table-responsive" style="padding:25px">
+                            <table class="table table-bordered text-center" id="table-bast">
                             <thead class="thead-light text-center" >
                                 <tr>
                                     <th scope="col">{{ __('No') }}</th>
@@ -44,54 +44,14 @@
                                     <th scope="col">{{ __('NIP') }}</th>
                                     <th scope="col">{{ __('Jabatan') }}</th>
                                     <th scope="col">{{ __('Unit') }}</th>
+                                    <th scope="col">{{ __('Sewa') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col">{{ __('Export To') }}</th>
-                                    <th scope="col"></th>
+                                    <th scope="col">{{ __('Export To PDF') }}</th>
+                                    <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-center">
-                                @foreach ($basts as $row)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $row->nama }}</td>
-                                        <td>{{ $row->nip }}</td>
-                                        <td>{{ $row->jabatan }}</td>
-                                        <td>{{ $row->unit }}</td>
-                                        <td>{{ $row->created_at->format('d/m/Y H:i') }}</td>
-                                        <td>
-                                            <a href="{{route('export',$row->id)}}" target="_blank">
-                                                <i class="far fa-file-pdf fa-lg"></i> PDF
-                                            </a>
-                                        </td>
-                                            <td class="text-right">
-                                                <div class="dropdown">
-                                                    <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        <i class="fas fa-ellipsis-v"></i>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <form action="{{ route('bastdocument.destroy', $row->id) }}" method="post">
-                                                            @csrf
-                                                            @method('delete')
-                                                            
-                                                            <a class="dropdown-item" href="{{ route('bastdocument.edit', $row->id) }}">{{ __('Edit') }}</a>
-                                                            <button type="button" class="dropdown-item" onclick="confirm('{{ __("Are you sure you want to delete this user?") }}') ? this.parentElement.submit() : ''">
-                                                                {{ __('Delete') }}
-                                                            </button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                @endforeach
-                                
-                            </tbody>
                         </table>
                     </div>
-                    {{-- <div class="card-footer py-4">
-                        <nav class="d-flex justify-content-end" aria-label="...">
-                            {{ $alokasihostname->links() }}
-                        </nav>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -99,3 +59,67 @@
         @include('layouts.footers.auth')
     </div>
 @endsection
+
+@push('js')
+    <script type="text/javascript">
+        $(function() {
+            var table = $('#table-bast').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ url("export/bast") }}'
+                },
+                columns: [
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                    {data: 'nama', name: 'nama'},
+                    {data: 'nip', name: 'nip'},
+                    {data: 'jabatan', name: 'jabatan'},
+                    {data: 'unit', name: 'unit'},
+                    {data: 'sewa', name: 'sewa'},
+                    {data: 'created_at', name: 'created_at' },
+                    {data: 'pdf', name: 'pdf' },
+                    {data: 'action', name: 'action' },
+                ],
+            });
+        });
+
+        function deleteData(id){
+            var table = $('#table-bast').DataTable();
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            swal({
+                title: 'Are you sure?',
+                text: "You won't to delete This Bast Document!",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then(function () {
+                $.ajax({
+                    url : "{{ url('bastdocument') }}" + '/' + id,
+                    type : "POST",
+                    data : {'_method' : 'DELETE', '_token' : csrf_token},
+                    success : function(data) {
+                        // table.api().ajax.reload();            
+                        $('#table-bast').DataTable().ajax.reload(null, false);
+                        swal({
+                            title: 'Success!',
+                            text: data.message,
+                            type: 'success',
+                            timer: '1500'
+                        })
+                    },
+                    error : function () {
+                        swal({
+                            title: 'Oops...',
+                            text: data.message,
+                            type: 'error',
+                            timer: '1500'
+                        })
+                    }
+                });
+            });
+        }
+
+    </script>
+@endpush

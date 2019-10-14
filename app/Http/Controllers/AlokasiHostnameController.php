@@ -16,9 +16,8 @@ class AlokasiHostnameController extends Controller
      */
     public function index()
     {
-        $alokasihostname = AlokasiHostname::orderBy('id', 'desc')->get();
 
-        return view ('alokasihostname.index' , compact('alokasihostname'));
+        return view ('alokasihostname.index');
     }
 
     /**
@@ -40,6 +39,7 @@ class AlokasiHostnameController extends Controller
      */
     public function store(Request $request)
     {   
+        // dd($request);
         if($request->unit === 'SETJEN'){
             $id_unit = 'VDC01';
         }elseif($request->unit === 'DJA'){
@@ -83,6 +83,7 @@ class AlokasiHostnameController extends Controller
         $alokasihostname->hostname = $hostname;
         $alokasihostname->description = $request->desc;
         $alokasihostname->ip = $request->ip;
+        $alokasihostname->label_vm = $hostname.'-'.$request->desc;
         $alokasihostname->sistem_operasi = $request->sistemOperasi;
         $alokasihostname->cpu = $request->cpu;
         $alokasihostname->memory = $request->memory;
@@ -138,6 +139,8 @@ class AlokasiHostnameController extends Controller
         $alokasihostname->description = $request->desc;
         $alokasihostname->ip = $request->ip;
         $alokasihostname->sistem_operasi = $request->sistemOperasi;
+        $labelvm = $alokasihostname->hostname."-".$request->desc;
+        $alokasihostname->label_vm = $labelvm;
         $alokasihostname->cpu = $request->cpu;
         $alokasihostname->memory = $request->memory;
         $alokasihostname->disk = $request->disk;
@@ -160,8 +163,11 @@ class AlokasiHostnameController extends Controller
      */
     public function destroy($id)
     {
-        $alokasihostname = AlokasiHostname::find($id);
-        $alokasihostname->delete();
-        return redirect()->route('alokasihostname.index')->withStatus(__('Alokasi Hostname VM successfully delete.'));
+        $alokasihostname = AlokasiHostname::findOrFail($id);
+        AlokasiHostname::destroy($id);
+        return response()->json([
+            'success' => true,
+            'message' => 'Alokasi Hostname VM Deleted'
+        ]);
     }
 }
