@@ -170,4 +170,14 @@ class AlokasiHostnameController extends Controller
             'message' => 'Alokasi Hostname VM Deleted'
         ]);
     }
+
+    // public function downloadXlsDate(Request $request){
+	// 	$data = TransaksiView_Ppob::where('tanggal','>=',$request->start_date)->where('tanggal','<=',$request->end_date)->where('status', $request->status)->orderBy('id','asc')->get();
+	// 	return Excel::create('Form Update Harga', function($excel) use ($data) {
+	// 		$excel->sheet('mySheet', function($sheet) use ($data)
+	// 		{
+	// 			$sheet->fromArray($data);
+	// 		});
+	// 	})->download('xls');
+	// }
 }

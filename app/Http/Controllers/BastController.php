@@ -38,7 +38,7 @@ class BastController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        //dd($request);
         $bastdoc = new Bast;
         $bastdoc->pernyataan = $request->pernyataan;
         $bastdoc->nama = $request->nama;
@@ -54,6 +54,8 @@ class BastController extends Controller
         $bastdoc->vm()->attach($request->alokasihostname);
         return redirect()->route('bastdocument.index')->withStatus(__('Bast Document successfully created.'));
     }
+
+    
 
     /**
      * Display the specified resource.

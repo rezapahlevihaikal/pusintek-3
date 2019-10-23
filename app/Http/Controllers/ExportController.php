@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
+use Excel;
 use App\Bast;
 use Yajra\DataTables\Datatables;
 use App\SistemOperasi;
@@ -20,6 +21,10 @@ class ExportController extends Controller
     	return $pdf->stream();
     }
 
+    public function cetak_excel($id)
+    {
+        
+    }
     
     public function jsonOs(){
         $sistemoperasi = SistemOperasi::all();
@@ -53,8 +58,9 @@ class ExportController extends Controller
         ->addIndexColumn()
         ->addColumn('pdf', function($bast){
             return '<a href="/export/cetak_surat/'.$bast->id.'" target="_blank">
-                        <i class="far fa-file-pdf fa-lg"></i> PDF
-                    </a>';
+                        <i class="far fa-file-pdf fa-lg"> </i>
+                    </a>'.
+                    '<a href="#"><i class="far fa-file-excel fa-lg"></i></a>';
         })
         ->addColumn('action', function($bast){
             return 

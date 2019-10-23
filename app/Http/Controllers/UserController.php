@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\SistemOperasi;
+use App\Bast;
 use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,7 +18,9 @@ class UserController extends Controller
      */
     public function index(User $model)
     {
-        return view('users.index', ['users' => $model->paginate(15)]);
+        $os = SistemOperasi::get()->count();
+        $bast = Bast::get()->count();
+        return view('users.index', ['users' => $model->paginate(15), 'bast'=>$bast, 'os'=>$os]);
     }
 
     /**
@@ -54,7 +58,7 @@ class UserController extends Controller
         return view('users.edit', compact('user'));
     }
 
-    /**
+    /**lkopo
      * Update the specified user in storage
      *
      * @param  \App\Http\Requests\UserRequest  $request

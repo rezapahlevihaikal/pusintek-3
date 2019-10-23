@@ -46,7 +46,7 @@
                                     <th scope="col">{{ __('Unit') }}</th>
                                     <th scope="col">{{ __('Sewa') }}</th>
                                     <th scope="col">{{ __('Creation Date') }}</th>
-                                    <th scope="col">{{ __('Export To PDF') }}</th>
+                                    <th scope="col">{{ __('Export') }}</th>
                                     <th scope="col">{{ __('Action') }}</th>
                                 </tr>
                             </thead>
