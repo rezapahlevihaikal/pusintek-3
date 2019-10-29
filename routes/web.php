@@ -31,4 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('export/sistemoperasi', 'ExportController@jsonOs')->name('export/sistemoperasi');
 	Route::get('export/alokasihostname', 'ExportController@jsonHostname')->name('export/alokasihostname');
 	Route::get('export/bast', 'ExportController@jsonBast')->name('export/bast');
+	Route::get('uploadfile/{id}', 'ExportController@uploadFile')->name('upload.bast');
+	Route::post('upload', 'ExportController@StoreUploadFile')->name('bast.upload.store');
+	Route::put('upload/edit/{id}', 'ExportController@UpdateFileUpload')->name('bast.upload.update');
 });

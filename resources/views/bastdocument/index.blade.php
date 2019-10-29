@@ -109,7 +109,7 @@
                             timer: '1500'
                         })
                     },
-                    error : function () {
+                    error : function (data) {
                         swal({
                             title: 'Oops...',
                             text: data.message,
