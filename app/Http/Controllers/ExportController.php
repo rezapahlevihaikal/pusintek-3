@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PDF;
-<<<<<<< HEAD
 use File;
 use DB;
-=======
 use Excel;
->>>>>>> 467a5212d6a88adfbceeab74fd3514fb721070ec
 use App\Bast;
 use Yajra\DataTables\Datatables;
 use App\SistemOperasi;
@@ -35,9 +32,16 @@ class ExportController extends Controller
             $scan = 'gadagambar';
         }
         $id_bast = $id;
+
+        // return response()->file('./scan/'.$scan->gambar);
         // dd($id_bast);
 
         return view('uploadfile',compact('id_bast' , 'scan'));
+    }
+
+    public function showFile($id){
+        $scan = Upload_File::where('bast_id',$id)->first();
+        return response()->file('./scan/'.$scan->gambar);
     }
 
    
@@ -49,11 +53,12 @@ class ExportController extends Controller
       $this->validate(
           $request, 
             [
-                'gambar'    => 'required|image|mimes:jpg,png,jpeg,svg|max:2048'
+                // 'gambar'    => 'required|image|mimes:jpg,png,jpeg,svg|max:2048'
+                'gambar' => 'required|file|mimes:pdf'
             ],
             [
                 'gambar.required' => 'harus upload scan an bro/sis',
-                'gambar.image' => 'upload nya cuma bisa image bro/sis',
+                // 'gambar.image' => 'upload nya cuma bisa image bro/sis',
                 'gambar.mimes' => 'upload nya cuma bisa image bro/sis',
                 'gambar.max' => 'file nya kegedean cuma bs max 2mb :(',
             ]
@@ -80,11 +85,12 @@ class ExportController extends Controller
         $this->validate(
             $request, 
                 [
-                    'gambar'    => 'required|image|mimes:jpg,png,jpeg,svg|max:2048'
+                    // 'gambar'    => 'required|image|mimes:jpg,png,jpeg,svg|max:2048'
+                    'gambar' => 'required|file|mimes:pdf'
                 ],
                 [
                     'gambar.required' => 'harus upload scan an bro/sis',
-                    'gambar.image' => 'upload nya cuma bisa image bro/sis',
+                    // 'gambar.image' => 'upload nya cuma bisa image bro/sis',
                     'gambar.mimes' => 'upload nya cuma bisa image bro/sis',
                     'gambar.max' => 'file nya kegedean cuma bs max 2mb :(',
                 ]

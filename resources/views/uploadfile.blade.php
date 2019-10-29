@@ -48,9 +48,10 @@
                               Edit Document Scan
                           </button>
                           <br> <br> <br>
-                          <div class="text-center">
-                            <img src="{{asset('scan/'.$scan->gambar)}}" alt="" width="500">
-                          </div>                          
+                          <embed
+                            src="{{ route('show.bast',$id_bast) }}"
+                            style="width:600px; height:800px;"
+                            frameborder="0">                          
                          
                         @endif
                         
