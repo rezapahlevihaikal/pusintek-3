@@ -38,7 +38,9 @@ class BastController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        // dd($request->sewa);
+        $effectiveDate = date('Y-m-d', strtotime("+".$request->sewa." months"));
+        dd($effectiveDate);
         $bastdoc = new Bast;
         $bastdoc->pernyataan = $request->pernyataan;
         $bastdoc->nama = $request->nama;
