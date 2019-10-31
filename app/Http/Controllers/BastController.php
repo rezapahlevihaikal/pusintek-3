@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\AlokasiHostname;
+use App\Upload_file;
+use File;
 use App\Bast;
 use PDF;
 
@@ -41,6 +43,7 @@ class BastController extends Controller
         // dd($request->sewa);
         $effectiveDate = date('Y-m-d', strtotime("+".$request->sewa." months"));
         dd($effectiveDate);
+        //dd($request);
         $bastdoc = new Bast;
         $bastdoc->pernyataan = $request->pernyataan;
         $bastdoc->nama = $request->nama;
@@ -56,6 +59,8 @@ class BastController extends Controller
         $bastdoc->vm()->attach($request->alokasihostname);
         return redirect()->route('bastdocument.index')->withStatus(__('Bast Document successfully created.'));
     }
+
+    
 
     /**
      * Display the specified resource.
@@ -111,6 +116,15 @@ class BastController extends Controller
     public function destroy($id)
     {
         $bastdoc = Bast::find($id);
+        $upload = Upload_file::where('bast_id',$id)->first();
+        $data['count'] = Upload_file::where('bast_id',$id)->count();
+        // dd($upload);
+        if($data['count'] > 0){
+            $path = 'scan/'.$upload->gambar;
+            File::delete($path);
+            $upload->delete();
+        }
+
         $bastdoc->vm()->detach();
         $bastdoc->delete();
         return response()->json([

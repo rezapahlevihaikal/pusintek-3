@@ -7,7 +7,7 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>PUSINTEK</title>
+        <title>PUSINTEK OPTIK OPD BAST</title>
         <!-- Favicon -->
         <link href="{{ asset('argon') }}/img/brand/logo.png" rel="icon" type="image/png">
         <!-- Fonts -->
