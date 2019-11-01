@@ -40,20 +40,22 @@ class BastController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->sewa);
-        $effectiveDate = date('Y-m-d', strtotime("+".$request->sewa." months"));
-        dd($effectiveDate);
-        //dd($request);
+
         $bastdoc = new Bast;
         $bastdoc->pernyataan = $request->pernyataan;
         $bastdoc->nama = $request->nama;
         $bastdoc->nip = $request->nip;
         $bastdoc->jabatan = $request->jabatan;
         $bastdoc->unit = $request->unit;
+        $bastdoc->start_date = date('Y-m-d');
         if($request->sewa != null){
             $bastdoc->sewa = $request->sewa;
+            $effectiveDate = date('Y-m-d', strtotime("+".$request->sewa." months"));
+            $bastdoc->end_date = $effectiveDate;
         }else{
             $bastdoc->sewa = 2;
+            $effectiveDate = date('Y-m-d', strtotime("+2 months"));
+            $bastdoc->end_date = $effectiveDate;
         }
         $bastdoc->save();
         $bastdoc->vm()->attach($request->alokasihostname);

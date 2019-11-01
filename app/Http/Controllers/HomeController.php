@@ -26,9 +26,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $no = 1;
         $os = SistemOperasi::get()->count();
         $bast = Bast::get()->count();
-        return view('dashboard',compact('os','bast'));
+        $dn = date('Y-m-d');
+        $tenggat = Bast::where('end_date','<=', $dn)->get();
+        // dd($basts);
+        return view('dashboard',compact('os','bast','tenggat','no'));
     }
 
     public function chartUnit(){

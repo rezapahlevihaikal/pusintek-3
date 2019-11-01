@@ -153,9 +153,8 @@ class ExportController extends Controller
         ->addIndexColumn()
         ->addColumn('pdf', function($bast){
             return '<a href="/export/cetak_surat/'.$bast->id.'" target="_blank">
-                        <i class="far fa-file-pdf fa-lg"> </i>
-                    </a>'.
-                    '<a href="#"><i class="far fa-file-excel fa-lg"></i></a>';
+                        <i class="far fa-file-pdf fa-2x"> </i>
+                    </a>';
         })
         ->addColumn('action', function($bast){
             return 
